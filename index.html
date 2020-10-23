@@ -1,0 +1,284 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.notice_outer{
+	width: 400px;
+	postion: relative;
+	margin-left: -500px;
+	height: 70px;
+	display: flex;
+	overflow: auto;
+	border-radius: 0px 10px 10px 0px;
+	margin-bottom: 5px;
+}
+
+.notice_text{
+	flex: 93%;
+	padding: 0px 20px 0px 10px;
+}
+
+.notice_close{
+	flex: 7%;
+	cursor: pointer;
+	height: 0px;
+}
+</style>
+</head>
+
+<body onload="doThis()">
+
+<form>
+<textarea id="user_text"></textarea>
+<select id="user_color">
+<option value="red">Red</option>
+<option value="blue">Blue</option>
+<option value="orange">Orange</option>
+<option value="dark">Dark</option>
+
+</select>
+
+<button type="button" onclick="sendForm()">Send</button>
+</form>
+
+
+<script>
+
+
+
+editFancyBox = (user_text, user_color, idValue) => {
+	if(user_color)
+	{
+		if(user_color === "blue")
+		{
+			user_color = "#057da5";
+		}
+		else if(user_color === "red")
+		{
+			user_color = "red";
+		}
+		else if(user_color === "orange")
+		{
+			user_color = "orange";
+		}
+		else if(user_color === "dark")
+		{
+			user_color = "#333333";
+		}
+	}
+	
+	console.log(user_text)
+	
+	document.getElementById("notice_text_fancy_"+idValue).innerText = user_text;
+	document.getElementById("notice_outer_"+idValue).style.background = user_color;
+	document.getElementById("notice_outer_"+idValue).style.color = "white";
+}
+
+
+animateRight = (obj, from, to) => {
+	
+	if(from >= to){
+       //obj.style.visibility = 'hidden';
+       return;
+	}
+	else
+	{
+		var box = obj;
+		box.style.marginLeft = from + "px";
+		setTimeout(function(){
+           animateRight(obj, from + 10, to);
+		}, 10) 
+	}
+}
+
+
+doThis = () => {
+	setTimeout(() => {
+		let allFancyFields = document.getElementsByClassName('notice_outer');
+		
+		if(allFancyFields.length > 0)
+		{
+			let lastFancyFields = allFancyFields[allFancyFields.length - 1];
+			var totalFancyFieldsAvailable = lastFancyFields.id.charAt(lastFancyFields.id.length-1);
+			
+			totalFancyFieldsAvailable++;
+		}
+		else
+		{
+			var totalFancyFieldsAvailable = 1;
+		}
+		
+		console.log(totalFancyFieldsAvailable)
+		
+		let fancyNoticeOuter = document.createElement('div');
+		fancyNoticeOuter.setAttribute('class', 'notice_outer')
+		fancyNoticeOuter.setAttribute('id', 'notice_outer_'+totalFancyFieldsAvailable)
+
+		let fancyNoticeText = document.createElement('div');
+		fancyNoticeText.setAttribute('class', 'notice_text');
+		fancyNoticeText.setAttribute('id', 'notice_text');
+
+		let fancyNoticeTextParagraph = document.createElement('p');
+		fancyNoticeTextParagraph.setAttribute('id', 'notice_text_fancy_'+totalFancyFieldsAvailable)
+
+		let fancyNoticeBoxClose = document.createElement('div');
+		fancyNoticeBoxClose.setAttribute('class', 'notice_close');
+		fancyNoticeBoxClose.setAttribute('id', 'notice_close');
+		fancyNoticeBoxClose.setAttribute('onclick', 'notice_close(this)')
+		
+		let fancyNoticeBoxCloseParagraph = document.createElement('p')
+		fancyNoticeBoxCloseParagraph.innerHTML = "&#10005"
+
+
+		let getBodyElement = document.getElementsByTagName('body')[0];
+
+		getBodyElement.appendChild(fancyNoticeOuter);
+		fancyNoticeOuter.appendChild(fancyNoticeText);
+		fancyNoticeText.appendChild(fancyNoticeTextParagraph);
+		fancyNoticeOuter.appendChild(fancyNoticeBoxClose);
+		fancyNoticeBoxClose.appendChild(fancyNoticeBoxCloseParagraph);
+		
+		
+		
+		
+		
+		function myFunction(x) {
+		  if (x.matches) {
+			document.getElementById('notice_outer_'+totalFancyFieldsAvailable).style.width = "100%"
+			
+			document.body.style.backgroundColor = "yellow";
+		  } else {
+		   document.getElementById('notice_outer_'+totalFancyFieldsAvailable).style.width = "400px"
+		   document.body.style.backgroundColor = "pink";
+		  }
+		}
+
+		var x = window.matchMedia("(max-width: 400px)")
+		myFunction(x)
+		x.addListener(myFunction)
+
+		editFancyBox("Hello this is an example just to test things out na as u know.", "blue", totalFancyFieldsAvailable)
+		animateRight(document.getElementById("notice_outer_"+totalFancyFieldsAvailable), -400, 0);
+	}, 1000)
+}
+
+
+
+
+
+
+
+const animateLeft = async (obj, from, to) => {
+	if(to >= from)
+	{
+       console.log("Finished");
+	   return
+	}
+	else
+	{
+		var box = obj;
+		box.style.marginLeft = from + "px";
+		setTimeout(function(){
+           animateLeft(obj, from - 10, to);
+		}, 10)
+	}
+}
+
+const notice_close = async (e) => {
+	console.log(e)
+	var parentId = e.parentNode.id;
+	
+	animateLeft(document.getElementById(parentId), 0, -500)
+	setTimeout(()=> {
+		console.log("Yay it worked")
+		let p = e.parentNode;
+		if(p.className += ' animate__animated animate__backOutDown')
+		{
+			setTimeout( () =>
+			{
+				p.parentNode.removeChild(p);
+			}, 500);
+		}
+	}, 1000)
+}
+
+
+</script>
+
+
+<script>
+sendForm = () => {
+	let user_text = document.getElementById("user_text").value;
+	let user_color = document.getElementById("user_color").value;
+	
+	let allFancyFields = document.getElementsByClassName('notice_outer');
+		
+		if(allFancyFields.length > 0)
+		{
+			let lastFancyFields = allFancyFields[allFancyFields.length - 1];
+			var totalFancyFieldsAvailable = lastFancyFields.id.charAt(lastFancyFields.id.length-1);
+			
+			totalFancyFieldsAvailable++;
+		}
+		else
+		{
+			var totalFancyFieldsAvailable = 1;
+		}
+		
+		console.log(totalFancyFieldsAvailable)
+		
+		let fancyNoticeOuter = document.createElement('div');
+		fancyNoticeOuter.setAttribute('class', 'notice_outer')
+		fancyNoticeOuter.setAttribute('id', 'notice_outer_'+totalFancyFieldsAvailable)
+
+		let fancyNoticeText = document.createElement('div');
+		fancyNoticeText.setAttribute('class', 'notice_text');
+		fancyNoticeText.setAttribute('id', 'notice_text');
+
+		let fancyNoticeTextParagraph = document.createElement('p');
+		fancyNoticeTextParagraph.setAttribute('id', 'notice_text_fancy_'+totalFancyFieldsAvailable)
+
+		let fancyNoticeBoxClose = document.createElement('div');
+		fancyNoticeBoxClose.setAttribute('class', 'notice_close');
+		fancyNoticeBoxClose.setAttribute('id', 'notice_close');
+		fancyNoticeBoxClose.setAttribute('onclick', 'notice_close(this)')
+		
+		let fancyNoticeBoxCloseParagraph = document.createElement('p')
+		fancyNoticeBoxCloseParagraph.innerHTML = "&#10005"
+
+
+		let getBodyElement = document.getElementsByTagName('body')[0];
+
+		getBodyElement.appendChild(fancyNoticeOuter);
+		fancyNoticeOuter.appendChild(fancyNoticeText);
+		fancyNoticeText.appendChild(fancyNoticeTextParagraph);
+		fancyNoticeOuter.appendChild(fancyNoticeBoxClose);
+		fancyNoticeBoxClose.appendChild(fancyNoticeBoxCloseParagraph);
+	
+	
+	
+	
+	
+	function myFunction(x) {
+	  if (x.matches) {
+		document.getElementById('notice_outer_'+totalFancyFieldsAvailable).style.width = "100%"
+		
+		document.body.style.backgroundColor = "yellow";
+	  } else {
+	   document.getElementById('notice_outer_'+totalFancyFieldsAvailable).style.width = "400px"
+	   document.body.style.backgroundColor = "pink";
+	  }
+	}
+
+	var x = window.matchMedia("(max-width: 400px)")
+	myFunction(x)
+	x.addListener(myFunction)
+	
+	editFancyBox(user_text, user_color, totalFancyFieldsAvailable)
+	animateRight(document.getElementById("notice_outer_"+totalFancyFieldsAvailable), -400, 0)
+}
+</script>
+
+</body>
+
+</html>
