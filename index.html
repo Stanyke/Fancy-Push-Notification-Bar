@@ -263,70 +263,70 @@ sendForm = () => {
 	
 	let allFancyFields = document.getElementsByClassName('notice_outer');
 		
-		if(allFancyFields.length > 0)
-		{
-			let lastFancyFields = allFancyFields[allFancyFields.length - 1];
-			var totalFancyFieldsAvailable = lastFancyFields.id.charAt(lastFancyFields.id.length-1);
+	if(allFancyFields.length > 0)
+	{
+		let lastFancyFields = allFancyFields[allFancyFields.length - 1];
+		var totalFancyFieldsAvailable = lastFancyFields.id.charAt(lastFancyFields.id.length-1);
 			
-			totalFancyFieldsAvailable++;
-		}
-		else
-		{
-			var totalFancyFieldsAvailable = 1;
-		}
+		totalFancyFieldsAvailable++;
+	}
+	else
+	{
+		var totalFancyFieldsAvailable = 1;
+	}
 		
 		
-		let fancyNoticeOuter = document.createElement('div');
-		fancyNoticeOuter.setAttribute('class', 'notice_outer')
-		fancyNoticeOuter.setAttribute('id', 'notice_outer_'+totalFancyFieldsAvailable)
-		fancyNoticeOuter.style.width = "400px"
-		fancyNoticeOuter.style.marginLeft = "-500px"
-		fancyNoticeOuter.style.height = "70px"
-		fancyNoticeOuter.style.display = "flex"
-		fancyNoticeOuter.style.overflow = "auto"
-		fancyNoticeOuter.style.borderRadius = "0px 10px 10px 0px"
-		fancyNoticeOuter.style.marginBottom = "5px"
-		fancyNoticeOuter.style.transition = "1s"
+	let fancyNoticeOuter = document.createElement('div');
+	fancyNoticeOuter.setAttribute('class', 'notice_outer')
+	fancyNoticeOuter.setAttribute('id', 'notice_outer_'+totalFancyFieldsAvailable)
+	fancyNoticeOuter.style.width = "400px"
+	fancyNoticeOuter.style.marginLeft = "-500px"
+	fancyNoticeOuter.style.height = "70px"
+	fancyNoticeOuter.style.display = "flex"
+	fancyNoticeOuter.style.overflow = "auto"
+	fancyNoticeOuter.style.borderRadius = "0px 10px 10px 0px"
+	fancyNoticeOuter.style.marginBottom = "5px"
+	fancyNoticeOuter.style.transition = "1s"
 
 
-		let fancyNoticeText = document.createElement('div');
-		fancyNoticeText.setAttribute('class', 'notice_text');
-		fancyNoticeText.setAttribute('id', 'notice_text');
-		fancyNoticeText.style.flex = "93%"
-		fancyNoticeText.style.padding = "0px 20px 0px 10px"
+	let fancyNoticeText = document.createElement('div');
+	fancyNoticeText.setAttribute('class', 'notice_text');
+	fancyNoticeText.setAttribute('id', 'notice_text');
+	fancyNoticeText.style.flex = "93%"
+	fancyNoticeText.style.padding = "0px 20px 0px 10px"
 
-		let fancyNoticeTextParagraph = document.createElement('p');
-		fancyNoticeTextParagraph.setAttribute('id', 'notice_text_fancy_'+totalFancyFieldsAvailable)
+	let fancyNoticeTextParagraph = document.createElement('p');
+	fancyNoticeTextParagraph.setAttribute('id', 'notice_text_fancy_'+totalFancyFieldsAvailable)
 
-		let fancyNoticeBoxClose = document.createElement('div');
-		fancyNoticeBoxClose.setAttribute('class', 'notice_close');
-		fancyNoticeBoxClose.setAttribute('id', 'notice_close');
-		fancyNoticeBoxClose.setAttribute('onclick', 'notice_close(this)')
-		fancyNoticeBoxClose.style.flex = "7%"
-		fancyNoticeBoxClose.style.cursor = "pointer"
-		fancyNoticeBoxClose.style.height = "0px"
+	let fancyNoticeBoxClose = document.createElement('div');
+	fancyNoticeBoxClose.setAttribute('class', 'notice_close');
+	fancyNoticeBoxClose.setAttribute('id', 'notice_close');
+	fancyNoticeBoxClose.setAttribute('onclick', 'notice_close(this)')
+	fancyNoticeBoxClose.style.flex = "7%"
+	fancyNoticeBoxClose.style.cursor = "pointer"
+	fancyNoticeBoxClose.style.height = "0px"
 		
-		let fancyNoticeBoxCloseParagraph = document.createElement('p')
-		fancyNoticeBoxCloseParagraph.innerHTML = "&#10005"
+	let fancyNoticeBoxCloseParagraph = document.createElement('p')
+	fancyNoticeBoxCloseParagraph.innerHTML = "&#10005"
 
-		let fancyNoticeBoxCloseParagraphTimeCountDown = document.createElement('p')
-		fancyNoticeBoxCloseParagraphTimeCountDown.setAttribute('class', 'notice_time_countdown_'+totalFancyFieldsAvailable)
-		fancyNoticeBoxCloseParagraphTimeCountDown.setAttribute('id', 'notice_time_countdown_'+totalFancyFieldsAvailable)
-		fancyNoticeBoxCloseParagraphTimeCountDown.innerHTML = `${notice_duration}s`
-		fancyNoticeBoxCloseParagraphTimeCountDown.style.fontSize = "11px"
-		fancyNoticeBoxCloseParagraphTimeCountDown.style.position = "relative"
-		fancyNoticeBoxCloseParagraphTimeCountDown.style.bottom = "10px"
-		fancyNoticeBoxCloseParagraphTimeCountDown.style.padding = "3px"
+	let fancyNoticeBoxCloseParagraphTimeCountDown = document.createElement('p')
+	fancyNoticeBoxCloseParagraphTimeCountDown.setAttribute('class', 'notice_time_countdown_'+totalFancyFieldsAvailable)
+	fancyNoticeBoxCloseParagraphTimeCountDown.setAttribute('id', 'notice_time_countdown_'+totalFancyFieldsAvailable)
+	fancyNoticeBoxCloseParagraphTimeCountDown.innerHTML = `${notice_duration}s`
+	fancyNoticeBoxCloseParagraphTimeCountDown.style.fontSize = "11px"
+	fancyNoticeBoxCloseParagraphTimeCountDown.style.position = "relative"
+	fancyNoticeBoxCloseParagraphTimeCountDown.style.bottom = "10px"
+	fancyNoticeBoxCloseParagraphTimeCountDown.style.padding = "3px"
 
 
-		let getBodyElement = document.getElementsByTagName('body')[0];
+	let getBodyElement = document.getElementsByTagName('body')[0];
 
-		getBodyElement.appendChild(fancyNoticeOuter);
-		fancyNoticeOuter.appendChild(fancyNoticeText);
-		fancyNoticeText.appendChild(fancyNoticeTextParagraph);
-		fancyNoticeOuter.appendChild(fancyNoticeBoxClose);
-		fancyNoticeBoxClose.appendChild(fancyNoticeBoxCloseParagraph);
-		fancyNoticeBoxClose.appendChild(fancyNoticeBoxCloseParagraphTimeCountDown);
+	getBodyElement.appendChild(fancyNoticeOuter);
+	fancyNoticeOuter.appendChild(fancyNoticeText);
+	fancyNoticeText.appendChild(fancyNoticeTextParagraph);
+	fancyNoticeOuter.appendChild(fancyNoticeBoxClose);
+	fancyNoticeBoxClose.appendChild(fancyNoticeBoxCloseParagraph);
+	fancyNoticeBoxClose.appendChild(fancyNoticeBoxCloseParagraphTimeCountDown);
 	
 	
 	
