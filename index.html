@@ -15,6 +15,7 @@
 <option value="blue">Blue</option>
 <option value="orange">Orange</option>
 <option value="dark">Dark</option>
+<option value="pink">Pink</option>
 
 </select>
 
@@ -36,7 +37,7 @@ editFancyBox = (user_text, user_color, idValue) => {
 		}
 		else if(user_color === "red")
 		{
-			user_color = "red";
+			user_color = "#FF0033";
 		}
 		else if(user_color === "orange")
 		{
@@ -45,6 +46,10 @@ editFancyBox = (user_text, user_color, idValue) => {
 		else if(user_color === "dark")
 		{
 			user_color = "#333333";
+		}
+		else if(user_color === "pink")
+		{
+			user_color = "#CC0099";
 		}
 	}
 	
@@ -108,7 +113,34 @@ const notice_close = async (e) => {
 
 runCountDown = (totalFancyFieldsAvailable, notice_duration) => {
 	let number = notice_duration;
-	let interval = setInterval(() =>  {
+	let p = document.getElementById('notice_time_countdown_'+totalFancyFieldsAvailable).parentNode.parentNode;
+
+	let remainingSeconds = document.getElementById('notice_time_countdown_'+totalFancyFieldsAvailable).innerHTML.slice(0, -1);
+
+	number = remainingSeconds;
+
+	let interval;
+
+	p.onmouseover = () => {
+		clearInterval(interval)
+	}
+
+	p.onmouseleave = () => {
+		interval = setInterval(() =>  {
+			document.getElementById('notice_time_countdown_'+totalFancyFieldsAvailable).innerHTML =  `${number--}s`;
+
+			if(number < 0) {
+				clearInterval(interval);
+				animateLeft(document.getElementById("notice_outer_"+totalFancyFieldsAvailable), 0, -500)
+					
+				setTimeout(() => {
+					p.remove();
+				}, 1500)
+			}
+		}, 1000);
+	}
+
+	interval = setInterval(() =>  {
 		document.getElementById('notice_time_countdown_'+totalFancyFieldsAvailable).innerHTML =  `${number--}s`;
 
 		if(number < 0) {
@@ -116,9 +148,7 @@ runCountDown = (totalFancyFieldsAvailable, notice_duration) => {
 			animateLeft(document.getElementById("notice_outer_"+totalFancyFieldsAvailable), 0, -500)
 				
 			setTimeout(() => {
-				let p = document.getElementById('notice_time_countdown_'+totalFancyFieldsAvailable).parentNode.parentNode;
 				p.remove();
-					
 			}, 1500)
 		}
 	}, 1000);
