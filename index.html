@@ -74,6 +74,23 @@ editFancyBox = (user_text, user_color, idValue) => {
 }
 
 
+
+const animateLeft = async (obj, from, to) => {
+	if(to >= from)
+	{
+	   return
+	}
+	else
+	{
+		var box = obj;
+		box.style.marginLeft = from + "px";
+		setTimeout(function(){
+           animateLeft(obj, from - 10, to);
+		}, 10)
+	}
+}
+
+
 animateRight = (obj, from, to) => {
 	
 	if(from >= to){
@@ -91,24 +108,40 @@ animateRight = (obj, from, to) => {
 }
 
 
+const notice_close = async (e) => {
+	var parentId = e.parentNode.id;
+	
+	animateLeft(document.getElementById(parentId), 0, -500)
+	setTimeout(()=> {
+		let p = e.parentNode;
+		if(p.className += ' animate__animated animate__backOutDown')
+		{
+			setTimeout( () =>
+			{
+				p.parentNode.removeChild(p);
+			}, 500);
+		}
+	}, 1000)
+}
+
+
 runCountDown = (totalFancyFieldsAvailable) => {
-		let number = 10;
-		let interval = setInterval(() =>  {
-			document.getElementById('notice_time_countdown_'+totalFancyFieldsAvailable).innerHTML =  number--;
+	let number = 10;
+	let interval = setInterval(() =>  {
+		document.getElementById('notice_time_countdown_'+totalFancyFieldsAvailable).innerHTML =  number--;
 
-			if(number < 0) {
-				clearInterval(interval);
-				animateLeft(document.getElementById("notice_outer_"+totalFancyFieldsAvailable), 0, -500)
+		if(number < 0) {
+			clearInterval(interval);
+			animateLeft(document.getElementById("notice_outer_"+totalFancyFieldsAvailable), 0, -500)
 				
-				setTimeout(() => {
-					let p = document.getElementById('notice_time_countdown_'+totalFancyFieldsAvailable).parentNode.parentNode;
-					p.remove();
+			setTimeout(() => {
+				let p = document.getElementById('notice_time_countdown_'+totalFancyFieldsAvailable).parentNode.parentNode;
+				p.remove();
 					
-				}, 1500)
-			}
-
-		}, 500);
-	}
+			}, 1500)
+		}
+	}, 500);
+}
 
 
 doThis = () => {
@@ -192,44 +225,6 @@ doThis = () => {
 		runCountDown(totalFancyFieldsAvailable)
     }, 1000)
 }
-
-
-
-
-
-
-
-const animateLeft = async (obj, from, to) => {
-	if(to >= from)
-	{
-	   return
-	}
-	else
-	{
-		var box = obj;
-		box.style.marginLeft = from + "px";
-		setTimeout(function(){
-           animateLeft(obj, from - 10, to);
-		}, 10)
-	}
-}
-
-const notice_close = async (e) => {
-	var parentId = e.parentNode.id;
-	
-	animateLeft(document.getElementById(parentId), 0, -500)
-	setTimeout(()=> {
-		let p = e.parentNode;
-		if(p.className += ' animate__animated animate__backOutDown')
-		{
-			setTimeout( () =>
-			{
-				p.parentNode.removeChild(p);
-			}, 500);
-		}
-	}, 1000)
-}
-
 
 </script>
 
