@@ -10,6 +10,7 @@
 	overflow: auto;
 	border-radius: 0px 10px 10px 0px;
 	margin-bottom: 5px;
+    transition: 1s;
 }
 
 .notice_text{
@@ -66,7 +67,6 @@ editFancyBox = (user_text, user_color, idValue) => {
 		}
 	}
 	
-	console.log(user_text)
 	
 	document.getElementById("notice_text_fancy_"+idValue).innerText = user_text;
 	document.getElementById("notice_outer_"+idValue).style.background = user_color;
@@ -91,6 +91,26 @@ animateRight = (obj, from, to) => {
 }
 
 
+runCountDown = (totalFancyFieldsAvailable) => {
+		let number = 10;
+		let interval = setInterval(() =>  {
+			document.getElementById('notice_time_countdown_'+totalFancyFieldsAvailable).innerHTML =  number--;
+
+			if(number < 0) {
+				clearInterval(interval);
+				animateLeft(document.getElementById("notice_outer_"+totalFancyFieldsAvailable), 0, -500)
+				
+				setTimeout(() => {
+					let p = document.getElementById('notice_time_countdown_'+totalFancyFieldsAvailable).parentNode.parentNode;
+					p.remove();
+					
+				}, 1500)
+			}
+
+		}, 500);
+	}
+
+
 doThis = () => {
 	setTimeout(() => {
 		let allFancyFields = document.getElementsByClassName('notice_outer');
@@ -107,7 +127,6 @@ doThis = () => {
 			var totalFancyFieldsAvailable = 1;
 		}
 		
-		console.log(totalFancyFieldsAvailable)
 		
 		let fancyNoticeOuter = document.createElement('div');
 		fancyNoticeOuter.setAttribute('class', 'notice_outer')
@@ -128,6 +147,16 @@ doThis = () => {
 		let fancyNoticeBoxCloseParagraph = document.createElement('p')
 		fancyNoticeBoxCloseParagraph.innerHTML = "&#10005"
 
+		let fancyNoticeBoxCloseParagraphTimeCountDown = document.createElement('p')
+		fancyNoticeBoxCloseParagraphTimeCountDown.setAttribute('class', 'notice_time_countdown_'+totalFancyFieldsAvailable)
+		fancyNoticeBoxCloseParagraphTimeCountDown.setAttribute('id', 'notice_time_countdown_'+totalFancyFieldsAvailable)
+		fancyNoticeBoxCloseParagraphTimeCountDown.innerHTML = "5"
+		fancyNoticeBoxCloseParagraphTimeCountDown.style.fontSize = "11px"
+		fancyNoticeBoxCloseParagraphTimeCountDown.style.position = "relative"
+		fancyNoticeBoxCloseParagraphTimeCountDown.style.bottom = "10px"
+		fancyNoticeBoxCloseParagraphTimeCountDown.style.padding = "3px"
+
+
 
 		let getBodyElement = document.getElementsByTagName('body')[0];
 
@@ -136,6 +165,7 @@ doThis = () => {
 		fancyNoticeText.appendChild(fancyNoticeTextParagraph);
 		fancyNoticeOuter.appendChild(fancyNoticeBoxClose);
 		fancyNoticeBoxClose.appendChild(fancyNoticeBoxCloseParagraph);
+		fancyNoticeBoxClose.appendChild(fancyNoticeBoxCloseParagraphTimeCountDown);
 		
 		
 		
@@ -158,7 +188,9 @@ doThis = () => {
 
 		editFancyBox("Hello this is an example just to test things out na as u know.", "blue", totalFancyFieldsAvailable)
 		animateRight(document.getElementById("notice_outer_"+totalFancyFieldsAvailable), -400, 0);
-	}, 1000)
+
+		runCountDown(totalFancyFieldsAvailable)
+    }, 1000)
 }
 
 
@@ -170,7 +202,6 @@ doThis = () => {
 const animateLeft = async (obj, from, to) => {
 	if(to >= from)
 	{
-       console.log("Finished");
 	   return
 	}
 	else
@@ -184,12 +215,10 @@ const animateLeft = async (obj, from, to) => {
 }
 
 const notice_close = async (e) => {
-	console.log(e)
 	var parentId = e.parentNode.id;
 	
 	animateLeft(document.getElementById(parentId), 0, -500)
 	setTimeout(()=> {
-		console.log("Yay it worked")
 		let p = e.parentNode;
 		if(p.className += ' animate__animated animate__backOutDown')
 		{
@@ -224,7 +253,6 @@ sendForm = () => {
 			var totalFancyFieldsAvailable = 1;
 		}
 		
-		console.log(totalFancyFieldsAvailable)
 		
 		let fancyNoticeOuter = document.createElement('div');
 		fancyNoticeOuter.setAttribute('class', 'notice_outer')
@@ -245,6 +273,15 @@ sendForm = () => {
 		let fancyNoticeBoxCloseParagraph = document.createElement('p')
 		fancyNoticeBoxCloseParagraph.innerHTML = "&#10005"
 
+		let fancyNoticeBoxCloseParagraphTimeCountDown = document.createElement('p')
+		fancyNoticeBoxCloseParagraphTimeCountDown.setAttribute('class', 'notice_time_countdown_'+totalFancyFieldsAvailable)
+		fancyNoticeBoxCloseParagraphTimeCountDown.setAttribute('id', 'notice_time_countdown_'+totalFancyFieldsAvailable)
+		fancyNoticeBoxCloseParagraphTimeCountDown.innerHTML = "5"
+		fancyNoticeBoxCloseParagraphTimeCountDown.style.fontSize = "11px"
+		fancyNoticeBoxCloseParagraphTimeCountDown.style.position = "relative"
+		fancyNoticeBoxCloseParagraphTimeCountDown.style.bottom = "10px"
+		fancyNoticeBoxCloseParagraphTimeCountDown.style.padding = "3px"
+
 
 		let getBodyElement = document.getElementsByTagName('body')[0];
 
@@ -253,6 +290,7 @@ sendForm = () => {
 		fancyNoticeText.appendChild(fancyNoticeTextParagraph);
 		fancyNoticeOuter.appendChild(fancyNoticeBoxClose);
 		fancyNoticeBoxClose.appendChild(fancyNoticeBoxCloseParagraph);
+		fancyNoticeBoxClose.appendChild(fancyNoticeBoxCloseParagraphTimeCountDown);
 	
 	
 	
@@ -275,6 +313,8 @@ sendForm = () => {
 	
 	editFancyBox(user_text, user_color, totalFancyFieldsAvailable)
 	animateRight(document.getElementById("notice_outer_"+totalFancyFieldsAvailable), -400, 0)
+
+	runCountDown(totalFancyFieldsAvailable)
 }
 </script>
 
