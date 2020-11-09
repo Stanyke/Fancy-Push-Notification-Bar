@@ -104,7 +104,7 @@ const notice_close = async (e) => {
 	animateLeft(document.getElementById(parentId), 0, -500)
 	setTimeout(()=> {
 		let p = e.parentNode;
-		if(p.className += ' animate__animated animate__backOutDown')
+		if(p.className)
 		{
 			setTimeout( () =>
 			{
