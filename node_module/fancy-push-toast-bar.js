@@ -78,7 +78,7 @@ exports.Toast = (user_text, user_color, notice_duration) => {
         animateLeft(document.getElementById(parentId), 0, -500)
         setTimeout(()=> {
             let p = e.parentNode;
-            if(p.className += ' animate__animated animate__backOutDown')
+            if(p.className)
             {
                 setTimeout( () =>
                 {
